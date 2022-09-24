@@ -1,0 +1,28 @@
+.vendor-code {
+  display: flex;
+  align-items: center;
+}
+
+.vendor-code__wrapper {
+  font-weight: 600;
+  font-size: 10px;
+  line-height: 12px;
+  text-transform: uppercase;
+  color: #C5C5C5;
+  margin-right: 10px;
+}
+
+
+.vendor-code__btn {
+  background-color: transparent;
+  border: transparent;
+  color: #6E6893;
+}
+
+.vendor-code__btn:hover {
+  opacity: .6;
+}
+
+.vendor-code__btn:active {
+  opacity: .9;
+}

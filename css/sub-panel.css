@@ -1,0 +1,37 @@
+.sub-panel {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  flex-direction: row;
+  background: #F4F2FF;
+  padding: 15px 20px;
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 15px;
+  color: #6E6893;
+}
+
+.sub-panel__choice-pages {
+  margin-right: 50px;
+}
+
+.sub-panel__pages {
+  margin-right: 50px;
+}
+
+.sub-panel__left {
+  border: solid #6E6893;
+  border-width: 0 2px 2px 0;
+  padding: 4px;
+  transform: rotate(135deg);
+  -webkit-transform: rotate(135deg);
+  margin-right: 50px;
+}
+
+.sub-panel__right {
+  border: solid #6E6893;
+  border-width: 0 2px 2px 0;
+  padding: 4px;
+  transform: rotate(-45deg);
+  -webkit-transform: rotate(-45deg);
+}

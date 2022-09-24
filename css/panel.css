@@ -1,0 +1,51 @@
+.panel {
+  padding: 15px 20px;
+  display: flex;
+}
+
+.panel__filter {
+  background-image: url("../img/filter.svg");
+  background-position: left 10px center;
+  background-repeat: no-repeat;
+  background-color: transparent;
+  border: 1px solid #C6C2DE;
+  box-sizing: border-box;
+  border-radius: 6px;
+  padding: 10px 10px 10px 40px;
+  font-size: 16px;
+  line-height: 19px;
+  color: #25213B;
+  margin-right: 20px;
+}
+
+.panel__search {
+  background: #F4F2FF;
+  border-radius: 6px;
+  flex-basis: 400px;
+  background-image: url("../img/search.svg");
+  background-position: left 10px center;
+  background-repeat: no-repeat;
+  margin-right: 20px;
+}
+
+.panel__input {
+  height: 100%;
+  width: 100%;
+  background-color: transparent;
+  padding: 10px 10px 10px 40px;
+  border: none;
+}
+
+.panel__add-goods {
+  align-self: flex-end;
+  background: #6D5BD0;
+  border-radius: 6px;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 19px;
+  text-transform: uppercase;
+  border: none;
+  padding: 10px 16px;
+  color: #FFFFFF;
+  margin-left: auto;
+}

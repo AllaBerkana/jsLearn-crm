@@ -1,0 +1,34 @@
+.crm {
+  padding: 70px 0;
+}
+
+.crm__header {
+  display: flex;
+  justify-content: space-between;
+  padding: 8px 0;
+  border-bottom: 1px solid #C6C2DE;
+  margin-bottom: 20px;
+}
+
+.crm__title {
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 29px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #6E6893;
+}
+
+.crm__total {
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 17px;
+  color: #6E6893;
+}
+
+.crm__total-price {
+  font-weight: bold;
+  font-size: 18px;
+  line-height: 22px;
+  color: #6D5BD0;
+}

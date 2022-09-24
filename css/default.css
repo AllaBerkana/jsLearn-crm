@@ -1,0 +1,92 @@
+html {
+  position: relative;
+  box-sizing: border-box;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+}
+
+body {
+  position: relative;
+  min-width: 560px;
+  min-height: 100vh;
+
+  font-family: Inter, Arial, sans-serif;
+  /* указать шрифт под проект*/
+  font-size: 12px;
+  font-weight: 400;
+  color: #25213B;
+  /*цвет под ваш проект*/
+  background-color: #F2F0F9;
+  ;
+  /*цвет под ваш проект*/
+}
+
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+
+button {
+  cursor: pointer;
+  padding: 0;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+h1,
+h2,
+h3,
+ul,
+p,
+figure,
+fieldset {
+  margin: 0;
+}
+
+iframe {
+  border: none;
+}
+
+/*
+  Доступно скрываю элементы
+*/
+
+.visually-hidden {
+  position: absolute !important;
+  clip: rect(1px 1px 1px 1px);
+  /* IE6, IE7 */
+  clip: rect(1px, 1px, 1px, 1px);
+  padding: 0 !important;
+  border: 0 !important;
+  height: 1px !important;
+  width: 1px !important;
+  overflow: hidden;
+}
+
+.container {
+  max-width: 1180px;
+  padding: 0 40px;
+  margin: 0 auto;
+}
+
+
+fieldset {
+  margin: 0;
+  padding: 0;
+  border: none
+}
