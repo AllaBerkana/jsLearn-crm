@@ -1,11 +1,13 @@
 'use strict';
 
 const modalTitle = document.querySelector('.modal__title');
+const overlayModal = document.querySelector('.overlay__modal');
 const modalForm = document.querySelector('.modal__form');
 const modalCheckbox = document.querySelector('.modal__checkbox');
 const modalInputCheckbox = document.querySelector('.modal__input_discount');
 const overlayElem = document.querySelector('.overlay');
-
+const btnModalOpen = document.querySelector('.panel__add-goods');
+const btnModalClose = document.querySelector('.modal__close');
 const tableBody = document.querySelector('.table__body');
 
 overlayElem.classList.remove('active');
@@ -48,7 +50,7 @@ const createElem = (tag, opts) => {
     return elem;
 };
 
-const createRow = ({ id, title, category, units, count, price}) => {
+const createRow = ({ id, title, category, units, count, price }) => {
     const tableRow = document.createElement('TR')
 
     const td = createElem('TD', {
@@ -88,7 +90,6 @@ const createRow = ({ id, title, category, units, count, price}) => {
         textContent: `$ ${count * price}`,
     });
 
-
     const td_btn_wrapper = createElem('TD', {
         className: 'table__cell table__cell_btn-wrapper',
     });
@@ -105,6 +106,8 @@ const createRow = ({ id, title, category, units, count, price}) => {
     tableBody.append(tableRow);
     tableRow.append(td, td_title, td_category, td_units, td_count, td_price, td_total, td_btn_wrapper);
     td_btn_wrapper.append(button_pic, button_edit, button_del);
+
+    return tableRow;
 };
 
 const renderGoods = (arr) => {
@@ -114,3 +117,12 @@ const renderGoods = (arr) => {
 };
 renderGoods(arrGoods);
 
+btnModalOpen.addEventListener('click', () =>
+    overlayElem.classList.add('active'));
+overlayModal.addEventListener('click', event =>
+    event.stopPropagation());
+overlayElem.addEventListener('click', () =>
+    overlayElem.classList.remove('active'));
+btnModalClose.addEventListener('click', () =>
+    overlayElem.classList.remove('active'));
+    
