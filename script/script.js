@@ -7,10 +7,8 @@ const modalCheckbox = document.querySelector('.modal__checkbox');
 const modalInputCheckbox = document.querySelector('.modal__input_discount');
 const overlayElem = document.querySelector('.overlay');
 const btnModalOpen = document.querySelector('.panel__add-goods');
-const btnModalClose = document.querySelector('.modal__close');
 const tableBody = document.querySelector('.table__body');
 
-overlayElem.classList.remove('active');
 
 const arrGoods = [
     {
@@ -52,6 +50,7 @@ const createElem = (tag, opts) => {
 
 const createRow = ({ id, title, category, units, count, price }) => {
     const tableRow = document.createElement('TR')
+    tableRow.className = 'goods__row';
 
     const td = createElem('TD', {
         className: 'table__cell',
@@ -110,19 +109,44 @@ const createRow = ({ id, title, category, units, count, price }) => {
     return tableRow;
 };
 
+// как сделать?
+//  При клике на кнопку удалить в таблице, удалять 
+// строку из вёрстки и объект из базы данных
+// В консоль выводить базу данных после удаления поля
 const renderGoods = (arr) => {
     arr.forEach((obj) => {
         createRow(obj);
-    });
-};
-renderGoods(arrGoods);
 
-btnModalOpen.addEventListener('click', () =>
-    overlayElem.classList.add('active'));
-overlayModal.addEventListener('click', event =>
-    event.stopPropagation());
-overlayElem.addEventListener('click', () =>
-    overlayElem.classList.remove('active'));
-btnModalClose.addEventListener('click', () =>
-    overlayElem.classList.remove('active'));
-    
+        const btnsDel = document.querySelectorAll('.table__btn_del');
+        btnsDel.forEach(del => {
+            del.addEventListener('click', event => {
+                const target = event.target;
+                if (target.contains(del)) {
+                    const row = target.closest('.goods__row');
+                    row.remove();
+                    console.log('obj: ', obj);
+                }
+            });
+        });
+    });
+    return arr;
+
+};
+
+const init = () => {
+    overlayElem.classList.remove('active');
+    renderGoods(arrGoods);
+
+
+
+    btnModalOpen.addEventListener('click', () =>
+        overlayElem.classList.add('active'));
+    overlayElem.addEventListener('click', event => {
+        const target = event.target;
+        if (target === overlayElem || target.closest('.modal__close')) {
+            overlayElem.classList.remove('active');
+        }
+    });
+
+}
+init();
