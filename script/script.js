@@ -39,6 +39,34 @@ const arrGoods = [
             "big": "img/cheetancar-b.jpg"
         }
     },
+    {
+        "id": 3,
+        "title": "Смартфон wdwdwomi 8/128GB",
+        "price": 27000,
+        "description": "Смартфон Xiaomi 11T – это представитель флагманской линейки, выпущенной во второй половине 2021 года. И он полностью соответствует такому позиционированию, предоставляя своим обладателям возможность пользоваться отличными камерами, ни в чем себя не ограничивать при запуске игр и других требовательных приложений.",
+        "category": "mobile-phone",
+        "discont": false,
+        "count": 3,
+        "units": "шт",
+        "images": {
+            "small": "img/smrtxiaomi11t-m.jpg",
+            "big": "img/smrtxiaomi11t-b.jpg"
+        }
+    },
+    {
+        "id": 4,
+        "title": "Радиоуправляемый  Cheewdwdwdtan",
+        "price": 4000,
+        "description": "Внедорожник на дистанционном управлении. Скорость 25км/ч. Возраст 7 - 14 лет",
+        "category": "toys",
+        "discont": 5,
+        "count": 1,
+        "units": "шт",
+        "images": {
+            "small": "img/cheetancar-m.jpg",
+            "big": "img/cheetancar-b.jpg"
+        }
+    },
 ];
 
 // util for createElement
@@ -114,30 +142,28 @@ const createRow = ({ id, title, category, units, count, price }) => {
 // строку из вёрстки и объект из базы данных
 // В консоль выводить базу данных после удаления поля
 const renderGoods = (arr) => {
+
     arr.forEach((obj) => {
         createRow(obj);
-
-        const btnsDel = document.querySelectorAll('.table__btn_del');
-        btnsDel.forEach(del => {
-            del.addEventListener('click', event => {
-                const target = event.target;
-                if (target.contains(del)) {
-                    const row = target.closest('.goods__row');
-                    row.remove();
-                    console.log('obj: ', obj);
-                }
-            });
+    });
+    const btnsDel = document.querySelectorAll('.table__btn_del');
+    btnsDel.forEach((del) => {
+        del.addEventListener('click', event => {
+            const target = event.target;
+            if (target.contains(del)) {
+                const row = target.closest('.goods__row');
+                row.remove();
+                arr.splice([0],1);
+                console.log(arr);
+            }
         });
     });
     return arr;
-
 };
 
 const init = () => {
     overlayElem.classList.remove('active');
     renderGoods(arrGoods);
-
-
 
     btnModalOpen.addEventListener('click', () =>
         overlayElem.classList.add('active'));
