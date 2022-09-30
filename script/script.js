@@ -2,7 +2,7 @@
 
 const modalTitle = document.querySelector('.modal__title');
 const overlayModal = document.querySelector('.overlay__modal');
-const modalForm = document.querySelector('.modal__form');
+const form = document.querySelector('.modal__form');
 const modalCheckbox = document.querySelector('.modal__checkbox');
 const modalInputCheckbox = document.querySelector('.modal__input_discount');
 const overlayElem = document.querySelector('.overlay');
@@ -76,6 +76,10 @@ const createElem = (tag, opts) => {
     return elem;
 };
 
+const addGoodData = ((data, good) => {
+    data.push(good);
+});
+
 const createRow = ({ id, title, category, units, count, price }) => {
     const tableRow = document.createElement('TR')
     tableRow.className = 'goods__row';
@@ -137,8 +141,12 @@ const createRow = ({ id, title, category, units, count, price }) => {
     return tableRow;
 };
 
-const renderGoods = (arr) => {
+const addGoodToPage = ((newGood, tableBody) => {
+    console.log('tableBody: ', tableBody);
+    tableBody.append(createRow(newGood));
+});
 
+const renderGoods = (arr) => {
     arr.forEach((obj) => {
         createRow(obj);
     });
@@ -149,7 +157,6 @@ const renderGoods = (arr) => {
     btnsDel.forEach((del, index) => {
         del.addEventListener('click', (event) => {
             const target = event.target;
-
             if (target.contains(del)) {
                 const row = target.closest('.goods__row');
                 row.remove();
@@ -162,18 +169,46 @@ const renderGoods = (arr) => {
     return filtered;
 };
 
-const init = () => {
-    overlayElem.classList.remove('active');
-    renderGoods(arrGoods);
+const modalControl = () => {
 
-    btnModalOpen.addEventListener('click', () =>
-        overlayElem.classList.add('active'));
+    const modalOpen = () => overlayElem.classList.add('active');
+    const modalClose = () => overlayElem.classList.remove('active');
+
+    btnModalOpen.addEventListener('click', modalOpen)
     overlayElem.addEventListener('click', event => {
         const target = event.target;
         if (target === overlayElem || target.closest('.modal__close')) {
-            overlayElem.classList.remove('active');
+            modalClose();
         }
     });
 
+    return {
+        modalClose
+    }
+};
+
+const formControl = (modalClose) => {
+    form.addEventListener('submit', event => {
+        event.preventDefault();
+        const formData = new FormData(event.target);
+        const newGood = Object.fromEntries(formData);
+        console.log('newGood: ', newGood);
+
+
+        addGoodToPage(newGood, tableBody);
+        addGoodData(arrGoods, newGood);
+        console.log(event.type);
+        form.reset();
+        modalClose();
+    });
+};
+
+const init = () => {
+    const { modalClose } = modalControl();
+    modalClose();
+
+    renderGoods(arrGoods);
+
+    formControl(modalClose);
 }
 init();
