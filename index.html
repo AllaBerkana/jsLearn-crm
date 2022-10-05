@@ -17,14 +17,13 @@
 </head>
 
 <body>
-
   <section class="crm">
     <div class="container">
       <header class="crm__header">
         <h1 class="crm__title">CRM - ShopOnline</h1>
 
         <p class="crm__total">Итоговая стоимость:
-          <span class="crm__total-price">$ 900.00</span>
+          <span class="crm__total-price"></span>
         </p>
       </header>
 
@@ -95,7 +94,7 @@
       <div class="modal_top">
         <h2 class="modal__title">Добавить товар</h2>
         <div class="modal__vendor-code vendor-code">
-          <p class="vendor-code__wrapper">id: <span class="vendor-code__id">24601654816512</span></p>
+          <p class="vendor-code__wrapper">id: <span class="vendor-code__id"></span></p>
           <button class="vendor-code__btn">
             <svg width="15" height="15" fill="none" xmlns="http://www.w3.org/2000/svg">
               <g clip-path="url(#a)" stroke="currentColor" stroke-width="2" stroke-linecap="round"
@@ -115,45 +114,47 @@
         </div>
       </div>
 
-      <form action="https://jsonplaceholder.typicode.com/posts" class="modal__form" method="post">
+      <form action="https://jsonplaceholder.typicode.com/posts" class="modal__form" method="post"
+        oninput="total.value=parseInt(count.value)*parseInt(price.value)">
         <fieldset class="modal__fieldset">
 
-          <label class="modal__label modal__label_name" for="name">
+          <label class="modal__label modal__label_name" for="title">
             <span class="modal__text">Наименование</span>
-            <input class="modal__input" type="text" name="name" id="name">
+            <input class="modal__input" type="text" name="title" id="title" required>
           </label>
 
           <label class="modal__label modal__label_category" for="category">
             <span class="modal__text">Категория</span>
-            <input class="modal__input" type="text" name="category" id="category">
+            <input class="modal__input" type="text" name="category" id="category" required>
           </label>
 
           <label class="modal__label modal__label_description" for="description">
             <span class="modal__text">Описание</span>
-            <textarea class="modal__input modal__input_textarea" name="description" id="description"></textarea>
+            <textarea class="modal__input modal__input_textarea" name="description" id="description"
+              required></textarea>
           </label>
 
           <label class="modal__label modal__label_units" for="units">
             <span class="modal__text">Единицы измерения</span>
-            <input class="modal__input" type="text" name="units" id="units">
+            <input class="modal__input" type="text" name="units" id="units" required>
           </label>
 
           <div class="modal__label modal__label_discount">
             <label class="modal__text" for="discount">Дисконт</label>
             <div class="modal__checkbox-wrapper">
               <input class="modal__checkbox" type="checkbox" name="discount" id="discount">
-              <input class="modal__input modal__input_discount" type="text" name="discount_count" disabled>
+              <input class="modal__input modal__input_discount" type="text" name="discount_count" disabled required>
             </div>
           </div>
 
           <label class="modal__label modal__label_count" for="count">
             <span class="modal__text">Количество</span>
-            <input class="modal__input" type="text" name="count" id="count">
+            <input class="modal__input" type="number" name="count" id="count" required>
           </label>
 
           <label class="modal__label modal__label_price" for="price">
             <span class="modal__text">Цена</span>
-            <input class="modal__input" type="text" name="price" id="price">
+            <input class="modal__input" type="number" name="price" id="price" required>
           </label>
 
           <label tabindex="0" for="image" class="modal__label modal__label_file">Добавить изображение</label>
@@ -162,9 +163,8 @@
 
         <div class="modal__footer">
           <label class="modal__total">Итоговая стоимость:
-            <output class="modal__total-price" name="total">$ 900.00</output>
+            <output class="modal__total-price" name="total"></output>
           </label>
-
           <button class="modal__submit" type="submit">Добавить товар</button>
         </div>
       </form>

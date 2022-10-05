@@ -2,72 +2,17 @@
 
 const modalTitle = document.querySelector('.modal__title');
 const overlayModal = document.querySelector('.overlay__modal');
-const form = document.querySelector('.modal__form');
-const modalCheckbox = document.querySelector('.modal__checkbox');
-const modalInputCheckbox = document.querySelector('.modal__input_discount');
 const overlayElem = document.querySelector('.overlay');
 const btnModalOpen = document.querySelector('.panel__add-goods');
 const tableBody = document.querySelector('.table__body');
+const form = document.querySelector('.modal__form');
+const checkbox = form.elements.discount;
+const inputCheckbox = form.elements.discount_count;
+const vendorId = document.querySelector('.vendor-code__id');
+const totalPrice = document.querySelector('.crm__total-price');
+const modalTotal = form.total;
 
-
-const arrGoods = [
-    {
-        "id": 1,
-        "title": "Смартфон Xiaomi 11T 8/128GB",
-        "price": 27000,
-        "description": "Смартфон Xiaomi 11T – это представитель флагманской линейки, выпущенной во второй половине 2021 года. И он полностью соответствует такому позиционированию, предоставляя своим обладателям возможность пользоваться отличными камерами, ни в чем себя не ограничивать при запуске игр и других требовательных приложений.",
-        "category": "mobile-phone",
-        "discont": false,
-        "count": 3,
-        "units": "шт",
-        "images": {
-            "small": "img/smrtxiaomi11t-m.jpg",
-            "big": "img/smrtxiaomi11t-b.jpg"
-        }
-    },
-    {
-        "id": 2,
-        "title": "Радиоуправляемый автомобиль Cheetan",
-        "price": 4000,
-        "description": "Внедорожник на дистанционном управлении. Скорость 25км/ч. Возраст 7 - 14 лет",
-        "category": "toys",
-        "discont": 5,
-        "count": 1,
-        "units": "шт",
-        "images": {
-            "small": "img/cheetancar-m.jpg",
-            "big": "img/cheetancar-b.jpg"
-        }
-    },
-    {
-        "id": 545,
-        "title": "Смартфон wdwdwomi 8/128GB",
-        "price": 27000,
-        "description": "Смартфон Xiaomi 11T – это представитель флагманской линейки, выпущенной во второй половине 2021 года. И он полностью соответствует такому позиционированию, предоставляя своим обладателям возможность пользоваться отличными камерами, ни в чем себя не ограничивать при запуске игр и других требовательных приложений.",
-        "category": "mobile-phone",
-        "discont": false,
-        "count": 1,
-        "units": "шт",
-        "images": {
-            "small": "img/smrtxiaomi11t-m.jpg",
-            "big": "img/smrtxiaomi11t-b.jpg"
-        }
-    },
-    {
-        "id": 5454,
-        "title": "Радиоуправляемый  Cheewdwdwdtan",
-        "price": 4000,
-        "description": "Внедорожник на дистанционном управлении. Скорость 25км/ч. Возраст 7 - 14 лет",
-        "category": "toys",
-        "discont": 5,
-        "count": 2,
-        "units": "шт",
-        "images": {
-            "small": "img/cheetancar-m.jpg",
-            "big": "img/cheetancar-b.jpg"
-        }
-    },
-];
+const arrGoods = [];
 
 // util for createElement
 const createElem = (tag, opts) => {
@@ -76,11 +21,39 @@ const createElem = (tag, opts) => {
     return elem;
 };
 
+const generateId = () => {
+    const id = Date.now();
+    vendorId.textContent = id;
+    return id;
+};
+
+const getTotalPrice = (modalTotalVal) => {
+    const sum = [];
+    // const modalTotalVal = parseInt(modalTotal.value);
+
+    sum.push(modalTotalVal);
+    const newSum = sum.reduce((prev, val) => {
+        return prev + val;
+    }, 0);
+    totalPrice.textContent = `$ ${newSum}`;
+    return {
+        totalPrice,
+    };
+};
+
+const getModalTotal = () => {
+
+}
+
 const addGoodData = ((data, good) => {
     data.push(good);
+    return data;
 });
 
-const createRow = ({ id, title, category, units, count, price }) => {
+const createRow = ({ id, title, category, units, count, price, total }) => {
+    id = vendorId.textContent;
+    total = parseInt(form.total.value);
+
     const tableRow = document.createElement('TR')
     tableRow.className = 'goods__row';
 
@@ -88,17 +61,18 @@ const createRow = ({ id, title, category, units, count, price }) => {
         className: 'table__cell',
         textContent: `${id}`,
     });
+
     const td_title = createElem('TD', {
         className: 'table__cell table__cell_left table__cell_name',
     });
     td_title.dataset.id = `${id}`;
+    td_title.textContent = `${title}`
 
     const tdSpanId = createElem('SPAN', {
         className: 'table__cell-id',
-        textContent: `id: '${id}`,
+        textContent: `id: ${id}`,
     });
     td_title.append(tdSpanId);
-    td_title.append(`${title}`);
 
     const td_category = createElem('TD', {
         className: 'table__cell table__cell_left',
@@ -118,7 +92,7 @@ const createRow = ({ id, title, category, units, count, price }) => {
     });
     const td_total = createElem('TD', {
         className: 'table__cell',
-        textContent: `$ ${count * price}`,
+        textContent: `$ ${total}`,
     });
 
     const td_btn_wrapper = createElem('TD', {
@@ -137,19 +111,13 @@ const createRow = ({ id, title, category, units, count, price }) => {
     tableBody.append(tableRow);
     tableRow.append(td, td_title, td_category, td_units, td_count, td_price, td_total, td_btn_wrapper);
     td_btn_wrapper.append(button_pic, button_edit, button_del);
-
-    return tableRow;
 };
 
-const addGoodToPage = ((newGood, tableBody) => {
-    console.log('tableBody: ', tableBody);
+const addGoodToPage = ((newGood) => {
     tableBody.append(createRow(newGood));
 });
 
-const renderGoods = (arr) => {
-    arr.forEach((obj) => {
-        createRow(obj);
-    });
+const deleteGood = (arr) => {
 
     const btnsDel = document.querySelectorAll('.table__btn_del');
     let filtered = [];
@@ -161,54 +129,91 @@ const renderGoods = (arr) => {
                 const row = target.closest('.goods__row');
                 row.remove();
                 delete arr[index];
+                filtered = arr.filter(() => true);
+                console.log('filtered: ', filtered);
             }
-            filtered = arr.filter(() => true);
-            console.log('filtered: ', filtered);
+
         });
     });
-    return filtered;
+
+    return {
+        filtered,
+    };
+};
+
+const renderGoods = (arr) => {
+
+    arr.forEach((obj) => {
+        createRow(obj);
+        console.log('obj: ', obj);
+    });
 };
 
 const modalControl = () => {
-
     const modalOpen = () => overlayElem.classList.add('active');
     const modalClose = () => overlayElem.classList.remove('active');
 
-    btnModalOpen.addEventListener('click', modalOpen)
+    btnModalOpen.addEventListener('click', () => {
+        generateId();
+    });
+    btnModalOpen.addEventListener('click', modalOpen);
     overlayElem.addEventListener('click', event => {
         const target = event.target;
         if (target === overlayElem || target.closest('.modal__close')) {
             modalClose();
+            form.reset();
         }
     });
 
     return {
-        modalClose
+        modalClose,
     }
 };
 
-const formControl = (modalClose) => {
+const formControl = (modalClose, total) => {
     form.addEventListener('submit', event => {
         event.preventDefault();
         const formData = new FormData(event.target);
         const newGood = Object.fromEntries(formData);
-        console.log('newGood: ', newGood);
 
+        console.log('newGood: ', newGood);
 
         addGoodToPage(newGood, tableBody);
         addGoodData(arrGoods, newGood);
-        console.log(event.type);
-        form.reset();
+        deleteGood(arrGoods);
+
+        getTotalPrice(total);
+        //form.reset();
         modalClose();
     });
 };
 
+const checkDiscount = () => {
+    checkbox.addEventListener('click', e => {
+        const target = e.target;
+        if (target.checked === true) {
+            console.log('target: ', target);
+            inputCheckbox.removeAttribute('disabled');
+        }
+    })
+
+    checkbox.addEventListener('click', e => {
+        const target = e.target;
+        if (target.checked === false) {
+            console.log('target: ', target);
+            inputCheckbox.value = '';
+            inputCheckbox.setAttribute('disabled', 'disabled');
+        }
+    });
+};
 const init = () => {
+    //renderGoods(arrGoods);
     const { modalClose } = modalControl();
+    const { total } = createRow;
     modalClose();
 
-    renderGoods(arrGoods);
-
-    formControl(modalClose);
+    formControl(modalClose, total);
+    console.log('total: ', total);
+    checkDiscount();
 }
 init();
